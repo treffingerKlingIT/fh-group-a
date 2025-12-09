@@ -1,0 +1,93 @@
+<ion-modal #modal trigger="open-housing-modal" [breakpoints]="[0, 1]" [initialBreakpoint]="1">
+  <ng-template>
+    <div class="modal-content">
+      <!-- Header with Grabber and Back Button -->
+      <div class="modal-header-container">
+        <div class="grabber-container">
+          <div class="grabber"></div>
+        </div>
+
+        <div class="header-with-controls">
+          <ion-button fill="clear" class="back-button" (click)="dismiss()">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+          </ion-button>
+          <h2>Housing</h2>
+        </div>
+      </div>
+
+      <!-- Form Fields -->
+      <div class="form-container">
+        <ion-list class="form-list">
+          <ion-item class="form-item" lines="none">
+            <ion-label class="field-label">Home Type</ion-label>
+            <ion-select
+              justify="end"
+              [(ngModel)]="homeType"
+              interface="action-sheet"
+              class="field-select">
+              <ion-select-option *ngFor="let type of homeTypes" [value]="type">{{ type }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item class="form-item" lines="none">
+            <ion-label class="field-label">Household size</ion-label>
+            <ion-select justify="end"
+              [(ngModel)]="householdSize"
+              interface="action-sheet"
+              class="field-select">
+              <ion-select-option *ngFor="let size of householdSizes" [value]="size">{{ size }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item class="form-item" lines="none">
+            <ion-label class="field-label">Gas Type</ion-label>
+            <ion-select justify="end"
+              [(ngModel)]="gasType"
+              interface="action-sheet"
+              class="field-select">
+              <ion-select-option *ngFor="let type of gasTypes" [value]="type">{{ type }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item class="form-item" lines="none">
+            <ion-label class="field-label">Gas Use</ion-label>
+            <ion-input
+              [(ngModel)]="gasUse"
+              type="number"
+              placeholder="Usage(m³)"
+              class="field-input">
+            </ion-input>
+          </ion-item>
+
+          <ion-item class="form-item" lines="none">
+            <ion-label class="field-label">Water Use</ion-label>
+            <ion-input
+              [(ngModel)]="waterUse"
+              type="number"
+              placeholder="Usage(m³)"
+              class="field-input">
+            </ion-input>
+          </ion-item>
+
+          <ion-item class="form-item" lines="none">
+            <ion-label class="field-label">Water Heating Method</ion-label>
+            <ion-select justify="end"
+              [(ngModel)]="waterHeatingMethod"
+              interface="action-sheet"
+              class="field-select">
+              <ion-select-option *ngFor="let method of waterHeatingMethods" [value]="method">{{ method }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      //<!-- Add Button -->
+      <div class="button-container">
+        <ion-button expand="block" class="add-button" (click)="addEntry()">
+          Add
+          <ion-icon name="add-outline" slot="end"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+  </ng-template>
+</ion-modal>

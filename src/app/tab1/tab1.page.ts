@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonContent, IonButton, IonIcon, IonSegment, IonSegmentButton, IonLabel, IonHeader, IonToolbar, IonList, IonListHeader, IonItem, IonChip, IonText } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
+import { LogNewModalComponent, CategoryType } from '../log-new-modal/log-new-modal.component';
+import { HousingModalComponent } from '../housing-modal/housing-modal.component';
 import { addIcons } from 'ionicons';
 import {
   settingsOutline,
@@ -34,9 +36,11 @@ interface CalendarDay {
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
-  imports: [IonContent, IonButton, IonIcon, IonSegment, IonSegmentButton, IonLabel, IonHeader, IonToolbar, IonList, IonListHeader, IonItem, IonChip, IonText, CommonModule],
+  imports: [IonContent, IonButton, IonIcon, IonSegment, IonSegmentButton, IonLabel, IonHeader, IonToolbar, IonList, IonListHeader, IonItem, IonChip, IonText, CommonModule, LogNewModalComponent, HousingModalComponent],
 })
 export class Tab1Page {
+  @ViewChild('housingModal') housingModal!: HousingModalComponent;
+
   activeView: ViewMode = 'day';
   showHeaderShadow = false;
 
@@ -158,5 +162,14 @@ export class Tab1Page {
   logNew() {
     console.log('Log new entry clicked');
     // TODO: Implement log new functionality
+  }
+
+  onCategorySelected(category: CategoryType) {
+    console.log('Category selected:', category);
+    // Open the appropriate category modal
+    if (category === 'housing') {
+      this.housingModal.modal.present();
+    }
+    // TODO: Handle other categories (food, electricity, mobility)
   }
 }

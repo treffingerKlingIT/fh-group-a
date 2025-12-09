@@ -1,0 +1,70 @@
+<ion-modal #modal trigger="open-log-new-modal" [breakpoints]="[0, 1]" [initialBreakpoint]="1">
+  <ng-template>
+    <div class="modal-content" #modalContent>
+      <!-- Grabber Handle -->
+      <div class="grabber-container">
+        <div class="grabber"></div>
+      </div>
+
+      <!-- Modal Title -->
+      <div class="modal-header">
+        <h2>Log New</h2>
+      </div>
+
+      <!-- Category Options -->
+      <div class="categories-container">
+        <ion-button
+          expand="block"
+          class="category-button housing"
+          (click)="onCategorySelect('housing')">
+          <div class="button-content">
+            <div class="button-left">
+              <ion-icon name="business-outline"></ion-icon>
+              <span>Housing</span>
+            </div>
+            <ion-icon name="chevron-forward-outline" class="chevron"></ion-icon>
+          </div>
+        </ion-button>
+
+        <ion-button
+          expand="block"
+          class="category-button food"
+          (click)="onCategorySelect('food')">
+          <div class="button-content">
+            <div class="button-left">
+              <ion-icon name="restaurant-outline"></ion-icon>
+              <span>Food</span>
+            </div>
+            <ion-icon name="chevron-forward-outline" class="chevron"></ion-icon>
+          </div>
+        </ion-button>
+
+        <ion-button
+          expand="block"
+          class="category-button electricity"
+          (click)="onCategorySelect('electricity')">
+          <div class="button-content">
+            <div class="button-left">
+              <ion-icon name="flash-outline"></ion-icon>
+              <span>Electricity</span>
+            </div>
+            <ion-icon name="chevron-forward-outline" class="chevron"></ion-icon>
+          </div>
+        </ion-button>
+
+        <ion-button
+          expand="block"
+          class="category-button mobility"
+          (click)="onCategorySelect('mobility')">
+          <div class="button-content">
+            <div class="button-left">
+              <ion-icon name="car-outline"></ion-icon>
+              <span>Mobility</span>
+            </div>
+            <ion-icon name="chevron-forward-outline" class="chevron"></ion-icon>
+          </div>
+        </ion-button>
+      </div>
+    </div>
+  </ng-template>
+</ion-modal>

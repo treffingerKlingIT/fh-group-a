@@ -1,0 +1,131 @@
+ion-modal {
+  --height: auto;
+  --border-radius: 18px 18px 0 0;
+  --box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+
+  &::part(backdrop) {
+    background: rgba(0, 0, 0, 0.23);
+  }
+
+  &::part(content) {
+    border-radius: 18px 18px 0 0;
+  }
+}
+
+.modal-content {
+  background: white;
+  border-radius: 18px 18px 0 0;
+  padding: 0 0 32px 0;
+  min-height: 344px;
+  touch-action: pan-y;
+}
+
+.grabber-container {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.grabber {
+  width: 32px;
+  height: 4.5px;
+  background: rgba(60, 60, 67, 0.3);
+  border-radius: 2.5px;
+}
+
+.modal-header {
+  text-align: center;
+  padding: 12px 0 24px 0;
+
+  h2 {
+    margin: 0;
+    font-family: 'ABC Solar Display Variable Unlicensed Trial', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15.224px;
+    font-weight: 600;
+    color: #000000;
+    line-height: 19.701px;
+  }
+}
+
+.categories-container {
+  padding: 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.category-button {
+  --border-radius: 7.2px;
+  --padding-start: 14px;
+  --padding-end: 14px;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  height: 54px;
+  margin: 0;
+  font-family: 'ABC Solar Display Variable Unlicensed Trial', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  font-size: 10.746px;
+  letter-spacing: 0.32px;
+  text-transform: none;
+
+  .button-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .button-left {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    ion-icon {
+      font-size: 18px;
+    }
+
+    span {
+      font-size: 10.746px;
+      font-weight: 500;
+      letter-spacing: 0.32px;
+      line-height: 16.8px;
+    }
+  }
+
+  .chevron {
+    font-size: 12.5px;
+  }
+
+  &.housing {
+    --background: #718263;
+    --background-hover: #5f6f54;
+    --background-activated: #5f6f54;
+    --color: white;
+  }
+
+  &.food {
+    --background: #97c3bb;
+    --background-hover: #7fb0a7;
+    --background-activated: #7fb0a7;
+    --color: black;
+  }
+
+  &.electricity {
+    --background: #d1eed4;
+    --background-hover: #bfe3c3;
+    --background-activated: #bfe3c3;
+    --color: black;
+  }
+
+  &.mobility {
+    --background: #bab2b2;
+    --background-hover: #a19999;
+    --background-activated: #a19999;
+    --color: black;
+  }
+}

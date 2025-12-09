@@ -190,10 +190,16 @@
   </div>
 
   <!-- Log New Button -->
-  <ion-button expand="block" class="log-new-button" (click)="logNew()">
+  <ion-button expand="block" class="log-new-button" id="open-log-new-modal">
     Log New
     <ion-icon name="add-outline" slot="end"></ion-icon>
   </ion-button>
+
+  <!-- Log New Modal -->
+  <app-log-new-modal (categorySelected)="onCategorySelected($event)"></app-log-new-modal>
+
+  <!-- Housing Modal -->
+  <app-housing-modal #housingModal></app-housing-modal>
 
   <!-- Weekly/Monthly Overview -->
   <div class="section">
