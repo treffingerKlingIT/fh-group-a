@@ -1,0 +1,109 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Consumption</ion-title>
+    <div slot="end" class="period-selector">
+      <span class="period-text">Year</span>
+      <ion-icon name="swap-vertical-outline"></ion-icon>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="detail-container" *ngIf="!loading && detail">
+    <!-- Category Header -->
+    <div class="category-header">
+      <h2 class="category-title">{{ detail.category }} Consumption</h2>
+      <div class="value-container">
+        <span class="main-value">{{ detail.totalValue }}</span>
+        <span class="unit-text">ton CO₂/year</span>
+      </div>
+    </div>
+
+    <!-- Yearly Overview Section -->
+    <div class="overview-section">
+      <div class="overview-header">
+        <h3>Yearly Overview</h3>
+        <div class="trend-indicator">
+          <ion-icon name="trending-up-outline"></ion-icon>
+          <span>+5% per Month</span>
+        </div>
+      </div>
+
+      <!-- Chart -->
+      <div class="chart-container">
+        <svg class="line-chart" viewBox="0 0 360 100" preserveAspectRatio="none">
+          <!-- Grid lines -->
+          <line *ngFor="let i of [0,1,2,3,4,5,6]"
+                [attr.x1]="20 + i * 50"
+                [attr.y1]="0"
+                [attr.x2]="20 + i * 50"
+                [attr.y2]="100"
+                stroke="#e0e0e0"
+                stroke-width="0.5"/>
+
+          <!-- Line path -->
+          <polyline
+            [attr.points]="chartPoints"
+            fill="none"
+            stroke="#5a9d93"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+
+          <!-- Data points -->
+          <circle *ngFor="let point of chartData; let i = index"
+                  [attr.cx]="20 + i * 50"
+                  [attr.cy]="100 - point.value"
+                  r="3"
+                  [attr.fill]="i === 5 ? '#4a8d83' : '#5a9d93'"/>
+        </svg>
+
+        <!-- Month labels -->
+        <div class="month-labels">
+          <span *ngFor="let month of months; let i = index"
+                [class.active]="i === 5"
+                class="month-label">
+            {{ month }}
+          </span>
+        </div>
+
+        <!-- Current value badge -->
+        <div class="current-badge">
+          <span>{{ detail.totalValue }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Consumptions Section -->
+    <div class="recent-section">
+      <h3 class="section-title">Recent Consumptions</h3>
+
+      <div class="consumptions-card">
+        <div *ngFor="let group of groupedActivities" class="month-group">
+          <h4 class="month-header">{{ group.month }}</h4>
+
+          <div *ngFor="let activity of group.activities; let last = last"
+               class="consumption-item"
+               [class.no-border]="last && isLastGroup(group)">
+            <div class="item-icon">
+              <ion-icon [name]="activity.icon"></ion-icon>
+            </div>
+            <div class="item-content">
+              <h5>{{ activity.name }}</h5>
+              <p class="item-date">{{ formatDate(activity.date) }}</p>
+            </div>
+            <ion-icon name="chevron-forward-outline" class="arrow-icon"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="loading">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+</ion-content>

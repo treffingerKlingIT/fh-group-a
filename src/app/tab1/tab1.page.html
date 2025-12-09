@@ -1,0 +1,260 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-button slot="start" fill="clear" class="icon-button">
+      <ion-icon name="settings-outline"></ion-icon>
+    </ion-button>
+
+    <ion-segment slot="primary" [value]="activeView" (ionChange)="onSegmentChange($event)">
+      <ion-segment-button value="day">
+        <ion-label>Day</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="week">
+        <ion-label>Week</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="month">
+        <ion-label>Month</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-button slot="end" fill="clear" class="icon-button">
+      <ion-icon name="share-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="home-content" [scrollEvents]="true" (ionScroll)="onScroll($event)">
+
+  <!-- Day View: Circular Chart -->
+  <div class="chart-container" *ngIf="activeView === 'day'">
+    <div class="circular-chart">
+      <svg viewBox="0 0 300 300" class="chart-svg">
+        <!-- Background circles -->
+        <circle cx="150" cy="150" r="118" fill="none" stroke="#bab3b3" stroke-width="30" opacity="0.3"/>
+
+        <!-- Warehouse: 50% (green) -->
+        <circle cx="150" cy="150" r="118" fill="none" stroke="#718263" stroke-width="30"
+          stroke-dasharray="371 371"
+          stroke-dashoffset="0"
+          transform="rotate(-90 150 150)"/>
+
+        <!-- Food: 22% (teal) -->
+        <circle cx="150" cy="150" r="118" fill="none" stroke="#97c3bb" stroke-width="30"
+          stroke-dasharray="163 371"
+          stroke-dashoffset="-185"
+          transform="rotate(-90 150 150)"/>
+
+        <!-- Energy: 14% (light green) -->
+        <circle cx="150" cy="150" r="118" fill="none" stroke="#d1eed4" stroke-width="30"
+          stroke-dasharray="104 371"
+          stroke-dashoffset="-348"
+          transform="rotate(-90 150 150)"/>
+
+        <!-- Transport: 14% (gray) -->
+        <circle cx="150" cy="150" r="118" fill="none" stroke="#bab3b3" stroke-width="30"
+          stroke-dasharray="104 371"
+          stroke-dashoffset="-452"
+          transform="rotate(-90 150 150)"/>
+
+        <!-- Inner white circle -->
+        <circle cx="150" cy="150" r="90" fill="white"/>
+      </svg>
+
+      <div class="chart-center">
+        <ion-text color="medium" class="chart-label">
+          <p>Today</p>
+        </ion-text>
+        <h1 class="chart-value">4500</h1>
+        <ion-text color="medium" class="chart-unit">
+          <p>kg of CO<sub>2</sub></p>
+        </ion-text>
+        <div class="chart-info">
+          <ion-icon name="leaf-outline" class="leaf-icon"></ion-icon>
+          <ion-text color="medium" class="chart-subtext">
+            <p>That's 200+ saved trees</p>
+          </ion-text>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Breakdown -->
+    <div class="category-grid">
+      <ion-chip class="category-chip warehouse">
+        <ion-icon name="business-outline"></ion-icon>
+        <ion-label>50%</ion-label>
+      </ion-chip>
+      <ion-chip class="category-chip food">
+        <ion-icon name="restaurant-outline"></ion-icon>
+        <ion-label>22%</ion-label>
+      </ion-chip>
+      <ion-chip class="category-chip energy">
+        <ion-icon name="flash-outline"></ion-icon>
+        <ion-label>14%</ion-label>
+      </ion-chip>
+      <ion-chip class="category-chip transport">
+        <ion-icon name="car-outline"></ion-icon>
+        <ion-label>14%</ion-label>
+      </ion-chip>
+    </div>
+  </div>
+
+  <!-- Week View: Stacked Bar Charts -->
+  <div class="week-container" *ngIf="activeView === 'week'">
+    <ion-text color="medium" class="week-title">
+      <h3>This Week</h3>
+    </ion-text>
+    <div class="bar-chart-container">
+      <div class="bar-day" *ngFor="let day of weekData">
+        <div class="bar-wrapper">
+          <div class="bar-stack">
+            <!-- Transport (gray) - positioned from top -->
+            <div class="bar-segment transport"
+              [style.height.px]="getBarHeight(day.transport)"
+              [style.top.px]="getBarPosition(day, 'transport')"></div>
+            <!-- Energy (light green) -->
+            <div class="bar-segment energy"
+              [style.height.px]="getBarHeight(day.energy)"
+              [style.top.px]="getBarPosition(day, 'energy')"></div>
+            <!-- Food (teal) -->
+            <div class="bar-segment food"
+              [style.height.px]="getBarHeight(day.food)"
+              [style.top.px]="getBarPosition(day, 'food')"></div>
+            <!-- Warehouse (dark green) -->
+            <div class="bar-segment warehouse"
+              [style.height.px]="getBarHeight(day.warehouse)"
+              [style.top.px]="getBarPosition(day, 'warehouse')"></div>
+          </div>
+        </div>
+        <span class="day-label">{{ day.name }}</span>
+      </div>
+    </div>
+
+    <!-- Category Breakdown -->
+    <div class="category-grid">
+      <ion-chip class="category-chip warehouse">
+        <ion-icon name="business-outline"></ion-icon>
+        <ion-label>50%</ion-label>
+      </ion-chip>
+      <ion-chip class="category-chip food">
+        <ion-icon name="restaurant-outline"></ion-icon>
+        <ion-label>22%</ion-label>
+      </ion-chip>
+      <ion-chip class="category-chip energy">
+        <ion-icon name="flash-outline"></ion-icon>
+        <ion-label>14%</ion-label>
+      </ion-chip>
+      <ion-chip class="category-chip transport">
+        <ion-icon name="car-outline"></ion-icon>
+        <ion-label>14%</ion-label>
+      </ion-chip>
+    </div>
+  </div>
+
+  <!-- Month View: Calendar Grid -->
+  <div class="month-container" *ngIf="activeView === 'month'">
+    <div class="calendar-grid">
+      <!-- Week day headers -->
+      <div class="calendar-header">
+        <span *ngFor="let day of weekDays" class="week-day-header">{{ day }}</span>
+      </div>
+
+      <!-- Calendar days -->
+      <div class="calendar-days">
+        <div *ngFor="let calDay of calendarDays"
+          class="calendar-day"
+          [class.other-month]="!calDay.isCurrentMonth"
+          [class.has-activity]="calDay.hasActivity">
+          <span class="day-number">{{ calDay.day }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Breakdown -->
+    <div class="category-grid">
+      <ion-chip class="category-chip warehouse">
+        <ion-icon name="business-outline"></ion-icon>
+        <ion-label>50%</ion-label>
+      </ion-chip>
+      <ion-chip class="category-chip food">
+        <ion-icon name="restaurant-outline"></ion-icon>
+        <ion-label>22%</ion-label>
+      </ion-chip>
+      <ion-chip class="category-chip energy">
+        <ion-icon name="flash-outline"></ion-icon>
+        <ion-label>14%</ion-label>
+      </ion-chip>
+      <ion-chip class="category-chip transport">
+        <ion-icon name="car-outline"></ion-icon>
+        <ion-label>14%</ion-label>
+      </ion-chip>
+    </div>
+  </div>
+
+  <!-- Log New Button -->
+  <ion-button expand="block" class="log-new-button" (click)="logNew()">
+    Log New
+    <ion-icon name="add-outline" slot="end"></ion-icon>
+  </ion-button>
+
+  <!-- Weekly/Monthly Overview -->
+  <div class="section">
+    <ion-list-header>
+      <ion-label>{{ activeView === 'week' ? 'Monthly Overview' : 'Weekly Overview' }}</ion-label>
+    </ion-list-header>
+    <div class="weekly-chart">
+      <!-- Simple line chart placeholder -->
+      <svg viewBox="0 0 350 100" class="line-chart">
+        <path d="M 10,80 Q 60,60 90,40 T 150,35 T 210,45 T 270,30 L 320,25"
+          fill="none"
+          stroke="#97c3bb"
+          stroke-width="3"
+          stroke-linecap="round"/>
+        <circle cx="320" cy="25" r="8" fill="#2d2d2d"/>
+      </svg>
+      <div class="days-labels">
+        <span>M</span>
+        <span>T</span>
+        <span>W</span>
+        <span>T</span>
+        <span>F</span>
+        <span class="active">S</span>
+        <span>S</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Friends Leaderboard -->
+  <div class="section">
+    <ion-list-header>
+      <ion-label>Friends</ion-label>
+    </ion-list-header>
+    <ion-list class="leaderboard" lines="full">
+      <ion-item>
+        <ion-label slot="start" class="rank">1</ion-label>
+        <ion-label>Arinze</ion-label>
+        <ion-label slot="end" class="score-time">
+          <ion-text class="score">4500</ion-text>
+          <ion-text class="time">11:30 am</ion-text>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label slot="start" class="rank">2</ion-label>
+        <ion-label>Felix</ion-label>
+        <ion-label slot="end" class="score-time">
+          <ion-text class="score">4500</ion-text>
+          <ion-text class="time">11:30 am</ion-text>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label slot="start" class="rank">3</ion-label>
+        <ion-label>Flo</ion-label>
+        <ion-label slot="end" class="score-time">
+          <ion-text class="score">4500</ion-text>
+          <ion-text class="time">11:30 am</ion-text>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!-- Bottom spacing for tab bar -->
+  <div class="bottom-spacing"></div>
+</ion-content>

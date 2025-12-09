@@ -1,0 +1,540 @@
+ion-header {
+  background: #ffffff;
+
+  &.header-shadow {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease;
+  }
+
+  ion-toolbar {
+    --background: #ffffff;
+    --border-width: 0;
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .icon-button {
+      --padding-start: 0;
+      --padding-end: 0;
+      margin: 0;
+      width: 24px;
+      height: 24px;
+
+      ion-icon {
+        font-size: 24px;
+        color: #0b0c0b;
+      }
+    }
+
+    ion-segment {
+      --background: transparent;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: auto;
+
+      ion-segment-button {
+        --background: transparent;
+        --background-checked: transparent;
+        --background-hover: transparent;
+        --color: #b8b8b8;
+        --color-checked: #0b0c0b;
+        --indicator-color: #0b0c0b;
+        --indicator-height: 2px;
+        --padding-top: 0;
+        --padding-bottom: 4px;
+        --padding-start: 8px;
+        --padding-end: 8px;
+        min-width: 0;
+        min-height: 0;
+        font-size: 16px;
+        font-weight: 500;
+        text-transform: none;
+        margin: 0 4px;
+
+        &:first-child {
+          margin-left: 0;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        ion-label {
+          margin: 0;
+          font-family: 'ABC Solar Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+      }
+    }
+  }
+}
+
+.home-content {
+  --background: #ffffff;
+  --padding-top: 20px;
+  --padding-bottom: 0;
+  --padding-start: 16px;
+  --padding-end: 16px;
+}
+
+// Chart Container
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.circular-chart {
+  position: relative;
+  width: 312px;
+  height: 312px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .chart-svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .chart-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    .chart-label {
+      p {
+        font-size: 10px;
+        margin: 0;
+        font-weight: 400;
+      }
+    }
+
+    .chart-value {
+      font-size: 38px;
+      font-weight: 600;
+      color: #454459;
+      margin: 0;
+      line-height: 1;
+    }
+
+    .chart-unit {
+      p {
+        font-size: 13px;
+        margin: 0;
+
+        sub {
+          font-size: 8px;
+        }
+      }
+    }
+
+    .chart-info {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 4px;
+
+      .leaf-icon {
+        font-size: 8px;
+      }
+
+      .chart-subtext {
+        p {
+          font-size: 8px;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+// Category Grid
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 348px;
+  margin: 0 auto;
+
+  .category-chip {
+    --background: transparent;
+    --color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    height: 54px;
+    border-radius: 8px;
+    margin: 0;
+
+    ion-icon {
+      font-size: 22px;
+      margin: 0;
+    }
+
+    ion-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      margin: 0;
+    }
+
+    &.warehouse {
+      --background: #718263;
+
+      ion-icon,
+      ion-label {
+        color: #ffffff;
+      }
+    }
+
+    &.food {
+      --background: #97c3bb;
+
+      ion-icon,
+      ion-label {
+        color: #000000;
+      }
+    }
+
+    &.energy {
+      --background: #d1eed4;
+
+      ion-icon,
+      ion-label {
+        color: #000000;
+      }
+    }
+
+    &.transport {
+      --background: #bab2b2;
+
+      ion-icon,
+      ion-label {
+        color: #000000;
+      }
+    }
+  }
+}
+
+// Log New Button
+.log-new-button {
+  --background: #30372a;
+  --background-hover: #252b20;
+  --background-activated: #1a1e16;
+  --color: #ffffff;
+  --border-radius: 16px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  height: 48px;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 32px 0;
+  text-transform: none;
+  letter-spacing: normal;
+
+  ion-icon {
+    font-size: 18px;
+    margin-left: 4px;
+  }
+}
+
+// Sections
+.section {
+  margin-bottom: 32px;
+
+  ion-list-header {
+    --color: #a8a8a8;
+    --padding-start: 0;
+    --padding-end: 0;
+    padding: 0 0 16px 0;
+    min-height: auto;
+
+    ion-label {
+      font-size: 14px;
+      font-weight: 500;
+      margin: 0;
+    }
+  }
+}
+
+// Weekly Chart
+.weekly-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .line-chart {
+    width: 100%;
+    height: 100px;
+  }
+
+  .days-labels {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 4px;
+
+    span {
+      font-size: 12px;
+      font-weight: 600;
+      color: #bfbfbf;
+      padding: 2px 4px;
+      border-radius: 8px;
+
+      &.active {
+        background-color: #000000;
+        color: #ffffff;
+      }
+    }
+  }
+}
+
+// Leaderboard
+.leaderboard {
+  background: transparent;
+  padding: 0;
+
+  ion-item {
+    --background: transparent;
+    --padding-start: 0;
+    --padding-end: 0;
+    --inner-padding-end: 0;
+    --border-color: #c5c5c5;
+    --border-width: 0 0 0.3px 0;
+    --min-height: auto;
+    padding: 0 0 8px 0;
+    margin-bottom: 14px;
+
+    &:last-child {
+      --border-width: 0;
+    }
+
+    .rank {
+      min-width: 24px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #000000;
+      margin-right: 22px;
+    }
+
+    ion-label:not(.rank):not(.score-time) {
+      font-size: 14px;
+      font-weight: 500;
+      color: #000000;
+    }
+
+    .score-time {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+
+      .score {
+        font-size: 16px;
+        font-weight: 600;
+        color: #000000;
+        letter-spacing: 0.32px;
+        display: block;
+      }
+
+      .time {
+        font-size: 9px;
+        font-weight: 500;
+        color: #adadad;
+        letter-spacing: 0.18px;
+        display: block;
+      }
+    }
+  }
+}
+
+// Week View Styles
+.week-container {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 24px;
+  align-items: center;
+  width: 100%;
+
+  .week-title {
+    width: 100%;
+    max-width: 348px;
+    text-align: left;
+
+    h3 {
+      font-size: 16px;
+      font-weight: 400;
+      margin: 0;
+    }
+  }
+}
+
+.bar-chart-container {
+  display: flex;
+  gap: 27px;
+  align-items: flex-end;
+  justify-content: center;
+  height: 305px;
+  padding: 0 0 12px 0;
+
+  .bar-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 11px;
+    flex: 0 0 auto;
+  }
+
+  .bar-wrapper {
+    height: 275px;
+    width: 27px;
+    position: relative;
+    background-color: rgba(48, 55, 42, 0.09);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .bar-stack {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .bar-segment {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    transition: all 0.3s ease;
+
+    &.transport {
+      background-color: #bbb3b3;
+    }
+
+    &.energy {
+      background-color: #d2efd5;
+    }
+
+    &.food {
+      background-color: #97c3bb;
+    }
+
+    &.warehouse {
+      background-color: #718263;
+    }
+  }
+
+  .day-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: #454459;
+    opacity: 0.5;
+    text-align: center;
+  }
+}
+
+// Month View Styles
+.month-container {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 24px;
+  align-items: center;
+  width: 100%;
+}
+
+.calendar-grid {
+  width: 100%;
+  max-width: 348px;
+}
+
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+
+  .week-day-header {
+    font-size: 12px;
+    font-weight: 500;
+    color: #bdbdbd;
+    text-align: center;
+  }
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+
+  .calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+
+    .day-number {
+      font-size: 16px;
+      font-weight: 500;
+      color: #000000;
+      z-index: 1;
+    }
+
+    &.has-activity {
+      .day-number {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #000000;
+        border-radius: 50%;
+      }
+    }
+
+    &.other-month {
+      .day-number {
+        color: #d4d4d4;
+      }
+
+      &.has-activity .day-number {
+        border-color: #d4d4d4;
+      }
+    }
+
+    &:hover:not(.other-month) {
+      .day-number {
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+// Bottom Spacing
+.bottom-spacing {
+  height: 100px;
+}

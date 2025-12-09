@@ -1,0 +1,52 @@
+ion-tab-bar {
+  --background: #fafafa;
+  --border: 0.33px solid #e4e4e4;
+  height: 86px;
+  padding-top: 10px;
+  padding-bottom: 34px; // Account for home indicator on iPhone
+}
+
+ion-tab-button {
+  --color: #999999;
+  --color-selected: #000000;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  max-width: none;
+
+  ion-icon {
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+
+  ion-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    text-transform: none;
+    font-family: 'ABC Solar Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  // Active/Selected state
+  &.tab-selected {
+    ion-icon {
+      color: #000000;
+    }
+
+    ion-label {
+      color: #000000;
+      font-weight: 600;
+    }
+  }
+
+  // Unselected state
+  &:not(.tab-selected) {
+    ion-icon {
+      color: #999999;
+    }
+
+    ion-label {
+      color: #999999;
+      font-weight: 500;
+    }
+  }
+}

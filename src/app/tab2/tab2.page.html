@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Consumption</ion-title>
+    <div slot="end" class="period-selector" (click)="togglePeriod()">
+      <span class="period-text">{{ selectedPeriod }}</span>
+      <ion-icon name="swap-vertical-outline"></ion-icon>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="loading">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Loading consumption data...</p>
+  </div>
+
+  <!-- Main Content -->
+  <div class="consumption-container" *ngIf="!loading">
+    <!-- My Consumption Section -->
+    <div class="section-title">My Consumption</div>
+
+    <!-- Bubble Chart -->
+    <div class="bubble-chart" [class.animate]="animationReady">
+      <!-- Center total bubble -->
+      <div class="bubble bubble-total" [class.animate]="animationReady">
+        <div class="bubble-value">{{ totalConsumption }}t</div>
+        <div class="bubble-label">Total</div>
+      </div>
+
+      <!-- Category bubbles -->
+      <div
+        *ngFor="let category of categories; let i = index"
+        class="bubble bubble-category bubble-clickable"
+        [class]="'bubble-' + category.id"
+        [class.animate]="animationReady"
+        [style.background-color]="category.color"
+        [style.animation-delay.ms]="i * 100"
+        (click)="onBubbleClick(category)">
+        <div class="bubble-value">{{ category.value }}t</div>
+        <div class="bubble-label">{{ category.name }}</div>
+      </div>
+    </div>
+
+    <!-- Recent Activities Section -->
+    <div class="section-title section-title-bold">Recent Activities</div>
+
+    <ion-list class="activities-list">
+      <ion-item
+        *ngFor="let activity of recentActivities"
+        class="activity-item"
+        button
+        detail="true"
+        (click)="onActivityClick(activity)">
+        <div class="activity-icon" slot="start">
+          <ion-icon [name]="activity.icon"></ion-icon>
+        </div>
+        <ion-label>
+          <h3>{{ activity.name }}</h3>
+          <p>{{ activity.value }}t</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

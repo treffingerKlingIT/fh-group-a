@@ -1,0 +1,414 @@
+ion-header {
+  ion-toolbar {
+    --background: #ffffff;
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    max-width: 480px;
+    margin: 0 auto;
+
+    ion-title {
+      font-size: 30px;
+      font-weight: bold;
+      color: #000000;
+      padding-left: 8px;
+    }
+
+    .period-selector {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      padding-right: 16px;
+      transition: transform 0.2s ease;
+
+      &:active {
+        transform: scale(0.95);
+      }
+
+      .period-text {
+        font-size: 14px;
+        font-weight: 500;
+        color: #000000;
+      }
+
+      ion-icon {
+        font-size: 20px;
+        color: #000000;
+      }
+    }
+  }
+}
+
+ion-content {
+  --background: #ffffff;
+
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 16px;
+
+    ion-spinner {
+      --color: #136254;
+    }
+
+    p {
+      color: #666;
+      font-size: 14px;
+    }
+  }
+
+  .consumption-container {
+    padding: 16px 16px;
+    min-height: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2f372a;
+    margin-bottom: 16px;
+
+    &.section-title-bold {
+      font-weight: 600;
+      margin-top: 24px;
+    }
+  }
+
+  // Bubble Chart Styles
+  .bubble-chart {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 95%; // Slightly shorter for better visual balance
+    margin-bottom: 32px;
+    margin-top: 24px;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+      opacity: 0;
+      transform: scale(0);
+
+      &.animate {
+        opacity: 1;
+        transform: scale(1);
+        animation: bubbleEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+
+      // Inner content container to center text
+      .bubble-value,
+      .bubble-label {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        text-align: center;
+        line-height: 1.2;
+      }
+
+      .bubble-value {
+        font-size: 21px;
+        font-weight: 500;
+        top: 40%;
+        transform: translate(-50%, -50%);
+        transition: font-size 0.2s ease;
+      }
+
+      .bubble-label {
+        font-size: 14px;
+        font-weight: 500;
+        top: 58%;
+        transform: translateX(-50%);
+        transition: font-size 0.2s ease;
+      }
+    }
+
+    .bubble-clickable {
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+        .bubble-value {
+          font-size: 23px;
+        }
+
+        .bubble-label {
+          font-size: 15px;
+        }
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+
+    .bubble-clicked {
+      animation: bubbleClick 0.3s ease;
+    }
+
+    .bubble-total {
+      width: 41.67%; // 150px at 360px viewport
+      padding-bottom: 41.67%;
+      height: 0;
+      background-color: #136254;
+      left: 25%;
+      top: 30%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      //box-shadow: 0 8px 24px rgba(19, 98, 84, 0.4);
+
+      &.animate {
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      .bubble-value,
+      .bubble-label {
+        color: #f0f0f0;
+      }
+
+      .bubble-value {
+        font-size: 24px;
+        font-weight: 600;
+      }
+
+      .bubble-label {
+        font-size: 15px;
+      }
+    }
+
+    // Individual bubble positioning - arranged around centered core
+    .bubble-food {
+      width: 23.33%; // 84px at 360px viewport
+      padding-bottom: 23.33%;
+      height: 0;
+      left: 8%;
+      top: 27%;
+      z-index: 5;
+      //box-shadow: 0 8px 24px rgba(151, 195, 187, 0.4);
+
+      .bubble-value,
+      .bubble-label {
+        color: #2f372a;
+      }
+
+      .bubble-value {
+        font-size: 18px;
+      }
+
+      .bubble-label {
+        font-size: 12px;
+      }
+    }
+
+    .bubble-mobility {
+      width: 21.39%; // 77px at 360px viewport
+      padding-bottom: 21.39%;
+      height: 0;
+      left: 9%;
+      top: 50%;
+      z-index: 4;
+      //box-shadow: 0 8px 24px rgba(186, 178, 178, 0.4);
+
+      .bubble-value,
+      .bubble-label {
+        color: #2f372a;
+      }
+
+      .bubble-value {
+        font-size: 17px;
+      }
+
+      .bubble-label {
+        font-size: 11px;
+      }
+    }
+
+    .bubble-electricity {
+      width: 21.39%; // 77px at 360px viewport
+      padding-bottom: 21.39%;
+      height: 0;
+      right: 8%;
+      top: 37%;
+      z-index: 6;
+
+      .bubble-value,
+      .bubble-label {
+        color: #2f372a;
+      }
+
+      .bubble-value {
+        font-size: 17px;
+      }
+
+      .bubble-label {
+        font-size: 11px;
+      }
+    }
+
+    .bubble-housing {
+      width: 34.86%; // 125px at 360px viewport
+      padding-bottom: 34.86%;
+      height: 0;
+      right: 12%;
+      top: 50%;
+      z-index: 3;
+
+      .bubble-value,
+      .bubble-label {
+        color: #f0f0f0;
+      }
+
+      .bubble-value {
+        font-size: 20px;
+      }
+
+      .bubble-label {
+        font-size: 13px;
+      }
+    }
+  }
+
+  // Activities List Styles
+  .activities-list {
+    background: transparent;
+    padding: 0;
+
+    .activity-item {
+      --background: #ffffff;
+      --border-color: #f0f0f0;
+      --padding-start: 0;
+      --inner-padding-end: 0;
+      margin-bottom: 0;
+      border-bottom: 0.9px solid #f0f0f0;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+
+      &:hover {
+        --background: #f9f9f9;
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .activity-icon {
+        width: 32px;
+        height: 32px;
+        background-color: #ecf0f0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+
+        ion-icon {
+          font-size: 18px;
+          color: #2f372a;
+        }
+      }
+
+      &:hover .activity-icon {
+        background-color: #d8e4e4;
+        transform: scale(1.1);
+      }
+
+      ion-label {
+        h3 {
+          font-size: 14px;
+          font-weight: 500;
+          color: #2f372a;
+          margin: 0 0 4px 0;
+        }
+
+        p {
+          font-size: 12px;
+          font-weight: 400;
+          color: #b8b8b8;
+          margin: 0;
+        }
+      }
+
+      ion-icon[slot="end"] {
+        color: #b8b8b8;
+        font-size: 18px;
+        margin-left: 8px;
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes bubbleEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bubbleClick {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// Responsive adjustments for smaller screens
+@media (max-width: 320px) {
+  ion-content {
+    .consumption-container {
+      padding: 12px;
+    }
+
+    .bubble-chart {
+      .bubble-category {
+        .bubble-value {
+          font-size: 16px;
+        }
+
+        .bubble-label {
+          font-size: 11px;
+        }
+      }
+
+      .bubble-total {
+        .bubble-value {
+          font-size: 18px;
+        }
+
+        .bubble-label {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
