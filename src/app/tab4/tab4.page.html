@@ -1,13 +1,129 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>tab4</ion-title>
+    <ion-title>Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">tab4</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="loading">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <!-- Profile Content -->
+  <div class="profile-container" *ngIf="!loading && profile">
+    <!-- Avatar Section -->
+    <div class="avatar-section">
+      <div class="avatar-wrapper">
+        <div class="avatar-ring">
+          <img [src]="profile.avatar" [alt]="profile.name" class="avatar-image">
+        </div>
+        <div class="edit-button">
+          <ion-icon name="create-outline"></ion-icon>
+        </div>
+      </div>
+      <h2 class="user-name">{{ profile.name }}</h2>
+    </div>
+
+    <!-- Stats Card -->
+    <div class="stats-card" *ngIf="stats">
+      <div class="stat-item">
+        <div class="stat-icon footprint-icon">
+          <ion-icon name="footsteps-outline"></ion-icon>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Total footprint</span>
+          <div class="stat-value-row">
+            <span class="stat-value">{{ stats.totalFootprint | number:'1.2-2' }}</span>
+            <span class="stat-unit">tons/year</span>
+          </div>
+        </div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-icon trees-icon">
+          <ion-icon name="leaf-outline"></ion-icon>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Saved trees</span>
+          <div class="stat-value-row">
+            <span class="stat-value">{{ stats.savedTrees }}</span>
+            <span class="stat-unit">trees</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Level Section -->
+    <div class="level-section" *ngIf="levelData">
+      <div class="level-header">
+        <span class="level-title">Your Level</span>
+        <span class="level-badge">{{ levelData.level }}</span>
+      </div>
+
+      <!-- Radar Chart -->
+      <div class="radar-chart-container">
+        <svg class="radar-chart" viewBox="0 0 340 330">
+          <!-- Grid Lines -->
+          <line x1="170" y1="55" x2="170" y2="275" stroke="#dbdbdb" stroke-width="1"/>
+          <line x1="60" y1="165" x2="280" y2="165" stroke="#dbdbdb" stroke-width="1"/>
+
+          <!-- Diamond Grid -->
+          <polygon points="170,55 280,165 170,275 60,165" fill="none" stroke="#dbdbdb" stroke-width="2"/>
+          <polygon points="170,82.5 252.5,165 170,247.5 87.5,165" fill="none" stroke="#dbdbdb" stroke-width="2"/>
+          <polygon points="170,110 225,165 170,220 115,165" fill="none" stroke="#dbdbdb" stroke-width="2"/>
+          <polygon points="170,137.5 197.5,165 170,192.5 142.5,165" fill="none" stroke="#dbdbdb" stroke-width="2"/>
+
+          <!-- Data Polygon -->
+          <polygon [attr.points]="radarPoints" fill="rgba(149, 195, 187, 0.4)" stroke="#95c3bb" stroke-width="2"/>
+
+          <!-- Center Point -->
+          <circle cx="170" cy="165" r="12" fill="#95c3bb"/>
+          <circle cx="170" cy="165" r="6" fill="white"/>
+        </svg>
+
+        <!-- Axis Labels -->
+        <div class="axis-label top">
+          <span class="label-text">Housing</span>
+          <span class="label-value">{{ levelData.housing }}%</span>
+        </div>
+        <div class="axis-label right">
+          <span class="label-text">Mobility</span>
+          <span class="label-value">{{ levelData.mobility }}%</span>
+        </div>
+        <div class="axis-label bottom">
+          <span class="label-text">Electricity</span>
+          <span class="label-value">{{ levelData.electricity }}%</span>
+        </div>
+        <div class="axis-label left">
+          <span class="label-text">Food</span>
+          <span class="label-value">{{ levelData.food }}%</span>
+        </div>
+
+        <!-- Badge Icon -->
+        <div class="badge-icon">
+          <ion-icon name="ribbon-outline"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Section -->
+    <div class="settings-section">
+      <h3 class="settings-title">Settings</h3>
+
+      <div class="settings-list">
+        <div
+          *ngFor="let item of settingsItems"
+          class="settings-item"
+          (click)="onSettingsItemClick(item)">
+          <ion-icon [name]="item.icon" class="item-icon"></ion-icon>
+          <span class="item-label">{{ item.label }}</span>
+          <ion-icon name="chevron-forward-outline" class="item-arrow"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Spacing -->
+    <div class="bottom-spacing"></div>
+  </div>
 </ion-content>

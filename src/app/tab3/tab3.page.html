@@ -1,17 +1,68 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
+    <ion-title>Tips</ion-title>
+    <div slot="end" class="sort-button">
+      <span class="sort-text">Sort</span>
+      <ion-icon name="filter-outline"></ion-icon>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <!-- Category Filter Bar -->
+  <div class="category-bar">
+    <div class="category-tabs-wrapper">
+      <div class="category-tabs">
+        <button
+          *ngFor="let category of categories; let i = index"
+          #categoryTab
+          class="category-tab"
+          [class.active]="selectedCategory === category.id"
+          (click)="selectCategory(category.id, $event)">
+          {{ category.label }}
+        </button>
+      </div>
+      <div class="category-line">
+        <div class="category-indicator" [style.left.px]="indicatorLeft" [style.width.px]="indicatorWidth"></div>
+      </div>
+    </div>
+  </div>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="loading">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Loading tips...</p>
+  </div>
+
+  <!-- Tips List -->
+  <div class="tips-container" *ngIf="!loading">
+    <div
+      *ngFor="let tip of filteredTips"
+      class="tip-card"
+      (click)="onTipClick(tip)">
+      <!-- Tip Image -->
+      <div class="tip-image-container">
+        <img [src]="tip.image" [alt]="tip.title" class="tip-image">
+        <!-- Location Badge (for project type) -->
+        <div class="location-badge" *ngIf="tip.location">
+          <ion-icon name="location-outline"></ion-icon>
+          <span>{{ tip.location }}</span>
+        </div>
+      </div>
+
+      <!-- Tip Info -->
+      <div class="tip-info">
+        <h3 class="tip-title">{{ tip.title }}</h3>
+        <span class="tip-type">{{ getTypeLabel(tip.type) }}</span>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="filteredTips.length === 0">
+      <p>No tips available for this category.</p>
+    </div>
+
+    <!-- Bottom Spacing for Tab Bar -->
+    <div class="bottom-spacing"></div>
+  </div>
 </ion-content>

@@ -1,11 +1,32 @@
 ion-header {
+  --ion-border-color: transparent;
+  box-shadow: none;
+
+  &::after {
+    display: none;
+  }
+
   ion-toolbar {
     --background: #ffffff;
-    --padding-start: 16px;
+    --border-width: 0;
+    --border-style: none;
+    --padding-start: 8px;
     --padding-end: 16px;
     max-width: 480px;
     margin: 0 auto;
 
+    ion-buttons {
+      ion-back-button {
+        --color: #000000;
+        --icon-font-size: 24px;
+      }
+    }
+
+    ion-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #000000;
+    }
 
     .period-selector {
       display: flex;

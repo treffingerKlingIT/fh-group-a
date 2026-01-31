@@ -1,0 +1,215 @@
+ion-header {
+  --ion-border-color: transparent;
+  box-shadow: none;
+
+  &::after {
+    display: none;
+  }
+
+  ion-toolbar {
+    --background: #ffffff;
+    --border-width: 0;
+    --border-style: none;
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    max-width: 480px;
+    margin: 0 auto;
+
+    ion-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #000000;
+      padding-left: 8px;
+    }
+
+    .sort-button {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding-right: 16px;
+      cursor: pointer;
+
+      .sort-text {
+        font-size: 16px;
+        font-weight: 500;
+        color: #000000;
+      }
+
+      ion-icon {
+        font-size: 24px;
+        color: #000000;
+      }
+    }
+  }
+}
+
+ion-content {
+  --background: #ffffff;
+
+  .category-bar {
+    padding: 0 16px;
+    max-width: 480px;
+    margin: 0 auto;
+
+    .category-tabs-wrapper {
+      position: relative;
+
+      .category-tabs {
+        display: flex;
+        gap: 34px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        .category-tab {
+          background: none;
+          border: none;
+          padding: 8px 0;
+          font-size: 16px;
+          font-weight: 500;
+          color: #b8b8b8;
+          cursor: pointer;
+          white-space: nowrap;
+          transition: color 0.2s ease;
+
+          &.active {
+            color: #0b0c0b;
+          }
+        }
+      }
+
+      .category-line {
+        height: 2px;
+        background: #d9d9d9;
+        margin-top: 8px;
+        position: relative;
+
+        .category-indicator {
+          position: absolute;
+          top: 0;
+          height: 2px;
+          background: #000000;
+          transition: left 0.3s ease, width 0.3s ease;
+        }
+      }
+    }
+  }
+
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    gap: 16px;
+
+    ion-spinner {
+      --color: #136254;
+    }
+
+    p {
+      color: #666;
+      font-size: 14px;
+    }
+  }
+
+  .tips-container {
+    padding: 24px 16px;
+    max-width: 480px;
+    margin: 0 auto;
+
+    .tip-card {
+      margin-bottom: 24px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+
+      &:active {
+        transform: scale(0.98);
+      }
+
+      .tip-image-container {
+        position: relative;
+        width: 100%;
+        height: 155px;
+        border-radius: 11px;
+        overflow: hidden;
+
+        .tip-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .location-badge {
+          position: absolute;
+          bottom: 12px;
+          right: 12px;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          background: #d1efd4;
+          padding: 4px 12px;
+          border-radius: 12px;
+
+          ion-icon {
+            font-size: 16px;
+            color: #2f372a;
+          }
+
+          span {
+            font-size: 12px;
+            font-weight: 400;
+            color: #2f372a;
+          }
+        }
+      }
+
+      .tip-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-top: 12px;
+        gap: 16px;
+
+        .tip-title {
+          flex: 1;
+          font-size: 20px;
+          font-weight: 400;
+          color: #0b0c0b;
+          line-height: 1.1;
+          margin: 0;
+          max-width: 246px;
+        }
+
+        .tip-type {
+          font-size: 12px;
+          font-weight: 400;
+          color: #2f372a;
+          white-space: nowrap;
+        }
+      }
+    }
+
+    .empty-state {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 200px;
+
+      p {
+        color: #b8b8b8;
+        font-size: 14px;
+      }
+    }
+
+    .bottom-spacing {
+      height: 100px;
+    }
+  }
+}
