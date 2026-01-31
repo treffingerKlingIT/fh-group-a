@@ -1,0 +1,98 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab3"></ion-back-button>
+    </ion-buttons>
+    <div class="category-badge" *ngIf="tip">
+      <span>{{ getCategoryLabel() }}</span>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="loading">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <!-- Tip Detail Content -->
+  <div class="detail-container" *ngIf="!loading && tip">
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <h1 class="hero-title">{{ tip.title }}</h1>
+
+      <!-- Location (for projects) -->
+      <div class="hero-location" *ngIf="tip.location">
+        <ion-icon name="location-outline"></ion-icon>
+        <span>{{ tip.location }}</span>
+      </div>
+
+      <!-- Hero Image -->
+      <div class="hero-image-container">
+        <img [src]="tip.heroImage" [alt]="tip.title" class="hero-image">
+      </div>
+    </div>
+
+    <!-- Article Sections -->
+    <div class="article-content">
+      <div class="article-section" *ngFor="let section of tip.sections">
+        <h2 class="section-title">{{ section.title }}</h2>
+        <p class="section-content">{{ section.content }}</p>
+      </div>
+    </div>
+
+    <!-- Quote Block -->
+    <div class="quote-block" *ngIf="tip.quote">
+      <p class="quote-text">"{{ tip.quote.text }}"</p>
+      <div class="quote-author">
+        <span class="author-name">{{ tip.quote.author }}</span>
+        <span class="author-role">{{ tip.quote.role }}</span>
+      </div>
+    </div>
+
+    <!-- Project Facts (for projects) -->
+    <div class="facts-section" *ngIf="tip.facts">
+      <h2 class="facts-title">Project Facts</h2>
+
+      <div class="fact-item" *ngIf="tip.facts.place">
+        <h3 class="fact-label">Place</h3>
+        <p class="fact-value">{{ tip.facts.place }}</p>
+        <!-- Map placeholder -->
+        <div class="map-placeholder">
+          <img
+            src="https://maps.googleapis.com/maps/api/staticmap?center={{ tip.facts.location }}&zoom=10&size=340x150&maptype=roadmap&key=placeholder"
+            alt="Map"
+            class="map-image"
+            onerror="this.style.display='none'">
+          <div class="map-fallback">
+            <ion-icon name="location-outline"></ion-icon>
+            <span>{{ tip.facts.location }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="fact-item" *ngIf="tip.facts.location">
+        <h3 class="fact-label">Location</h3>
+        <p class="fact-value highlight">{{ tip.facts.location }}</p>
+      </div>
+
+      <div class="fact-item" *ngIf="tip.facts.projectName">
+        <h3 class="fact-label">Project Name</h3>
+        <p class="fact-value">{{ tip.facts.projectName }}</p>
+      </div>
+
+      <div class="fact-item" *ngIf="tip.facts.activeSince">
+        <h3 class="fact-label">Active Since</h3>
+        <p class="fact-value">{{ tip.facts.activeSince }}</p>
+      </div>
+
+      <div class="fact-item" *ngIf="tip.facts.partners">
+        <h3 class="fact-label">Partners</h3>
+        <p class="fact-value">{{ tip.facts.partners }}</p>
+      </div>
+    </div>
+
+    <!-- Bottom Spacing -->
+    <div class="bottom-spacing"></div>
+  </div>
+</ion-content>
